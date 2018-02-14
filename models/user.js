@@ -15,8 +15,7 @@ let emailLengthChecker = (email) => {
       }
   }
 };
-
-// Returns pattern of the users email. Reutrns true or false.
+// Returns pattern of the users email. Returns true or false.
 let validEmailChecker = (email) => {
   if (!email) {
       return false;
@@ -26,7 +25,6 @@ let validEmailChecker = (email) => {
   }
 };
 
-// Validating the length of the username.
 let usernameLengthChecker = (username) => {
     if (!username) {
         return false;
@@ -38,8 +36,6 @@ let usernameLengthChecker = (username) => {
         }
     }
 };
-
-// Returns pattern of the username.
 let validUsername = (username) => {
   if (!username) {
       return false;
@@ -47,6 +43,66 @@ let validUsername = (username) => {
       const usernamePattern = new RegExp(/^[a-zA-Z0-9]+$/);
       return usernamePattern.test(username);
   }
+};
+
+let fNameLengthChecker = (fName) => {
+  if (!fName) {
+      return false;
+  } else {
+      if (fName.length < 1 || fName.length > 20) {
+          return false;
+      } else {
+          return true;
+      }
+  }
+};
+let valid_fName = (fName) => {
+    if (!fName) {
+        return false;
+    } else {
+        const fNamePattern = new RegExp(/^[a-z ,.'-]+$/i);
+        return fNamePattern.test(fName);
+    }
+};
+
+let lNameLengthChecker = (lName) => {
+    if (!lName) {
+        return false;
+    } else {
+        if (lName.length < 3 || lName.length > 30) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+};
+let valid_lName = (lName) => {
+    if (!lName) {
+        return false;
+    } else {
+        const lNamePattern = new RegExp(/^[a-z ,.'-]+$/i);
+        return lNamePattern.test(lName);
+    }
+};
+
+let mobileLengthChecker = (mobile) => {
+    if (!mobile) {
+        return false;
+    } else {
+        if (mobile.length < 10 || mobile.length > 15) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+};
+let validMobile = (mobile) => {
+    if (!mobile) {
+        return false;
+    } else {
+        const mobilePattern = new RegExp(/([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/);
+        return mobilePattern.test(mobile);
+    }
 };
 
 let passwordLengthChecker = (password) => {
@@ -60,8 +116,7 @@ let passwordLengthChecker = (password) => {
       }
   }
 };
-
-let vaildPassword = (password) => {
+let validPassword = (password) => {
     if (!password) {
         return false;
     } else {
@@ -92,20 +147,58 @@ const usernameValidators = [
     }
 ];
 
-const passwordValidators = [
+const fNameValidators = [
     {
-       validator: passwordLengthChecker,
-       message: 'Password must be at least 8 characters but no more than 35.'
+        validator: fNameLengthChecker,
+        message: 'First name must be at least 1 character but no more than 20.'
     },
     {
-        validator: vaildPassword,
+        validator: valid_fName,
+        message: 'First name must not have any special characters.'
+    }
+];
+
+const lNameValidators = [
+    {
+        validator: lNameLengthChecker,
+        message: 'Last Name must be at least 3 character but no more than 30.'
+    },
+    {
+        validator: valid_lName,
+        message: 'Last Name must not have any special characters.'
+    }
+];
+
+const mobileValidators = [
+    {
+        validator: mobileLengthChecker,
+        message: 'Phone number must be at least 10 character but no more than 15.'
+    },
+    {
+        validator: validMobile,
+        message: 'Must be a valid mobile phone number.'
+    }
+];
+
+const passwordValidators = [
+    {
+        validator: passwordLengthChecker,
+        message: 'Password must be at least 8 characters but no more than 35.'
+    },
+    {
+        validator: validPassword,
         message: 'Must have at least one uppercase, lowercase, special character, and number.'
     }
-    ];
+];
 
 const userSchema = new Schema({
     email: {type: String, required: true, unique: true, lowercase: true, validate: emailValidators},
     username: {type: String, required: true, unique: true, lowercase: false, validate: usernameValidators},
+    fName: {type: String, required: true, validate: fNameValidators},
+    lName: {type: String, required: true, validate: lNameValidators},
+    role: {type: String, required: true},
+    mobile: {type: String, required: true, validate: mobileValidators},
+    admin: {type: Boolean, require: true, default: false},
     password: {type: String, required: true, validate: passwordValidators}
 });
 

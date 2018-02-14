@@ -1,0 +1,95 @@
+<h1 class="page-header">Register Page</h1>
+
+<!-- Registration Form -->
+<!-- Importing the form from register.components.ts -->
+<!-- Adding angular event to the for using (submit) = "onRegisterSubmit()" -->
+<form [formGroup] = "form" (submit) = "onRegisterSubmit()">
+
+  <!-- Username Input -->
+  <div class="form-group">
+    <label for="username">Username</label>
+    <!-- Applying a condition using has-error. If it is met then it will envoke the has error class from bootstrap. -->
+    <div [ngClass]="{'has-error': (form.controls.username.errors && form.controls.username.dirty), 'has-success' : !form.controls.username.errors}">
+      <!-- FormControlName attribute has to match the name attribute and the attribute in the createForm function in register.component.ts. -->
+      <input type="text" name="username" class="form-control" autocomplete="off" placeholder="Username" formControlName="username" />
+      <!-- Using the required validator from register.components.ts. -->
+      <ul class="help-block">
+        <!-- Only show the li if there is username errors. -->
+        <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">This field is required</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Email Input -->
+  <div class="form-group">
+    <label for="email">Email</label>
+    <div [ngClass]="{'has-error': (form.controls.email.errors && form.controls.email.dirty), 'has-success' : !form.controls.email.errors}">
+      <input type="text" name="email" class="form-control" autocomplete="off" placeholder="Email" formControlName="email" />
+      <ul class="help-block">
+        <!-- Only show the li if there is username errors. -->
+        <li *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">This field is required</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- First Name Input -->
+  <div class="form-group">
+    <label for="fName">First Name</label>
+    <div>
+      <input type="text" name="fName" class="form-control" autocomplete="off" placeholder="First Name" formControlName="fName" />
+    </div>
+  </div>
+
+  <!-- Last Name Input -->
+  <div class="form-group">
+    <label for="lName">Second Name</label>
+    <div>
+      <input type="text" name="lName" class="form-control" autocomplete="off" placeholder="Last Name" formControlName="lName" />
+    </div>
+  </div>
+
+  <!-- Role Input -->
+  <div class="form-group">
+    <label for="role">Role</label>
+    <div>
+      <input type="text" name="role" class="form-control" autocomplete="off" placeholder="Role" formControlName="role" />
+    </div>
+  </div>
+
+  <!-- Mobile Input -->
+  <div class="form-group">
+    <label for="mobile">Mobile Phone Number</label>
+    <div>
+      <input type="text" name="mobile" class="form-control" autocomplete="off" placeholder="Mobile Phone Number" formControlName="mobile" />
+    </div>
+  </div>
+
+  <!-- Password Input -->
+  <div class="form-group">
+    <label for="password">Password</label>
+    <div>
+      <input type="password" name="password" class="form-control" autocomplete="off" placeholder="Password" formControlName="password" />
+    </div>
+  </div>
+
+  <!-- Confirm Password Input -->
+  <div class="form-group">
+    <label for="confirm">Confirm Password</label>
+    <div>
+      <input type="password" name="confirm" class="form-control" autocomplete="off" placeholder="Confirm Password" formControlName="confirm" />
+    </div>
+  </div>
+
+  <input type="submit" class="btn btn-primary" value="Submit" />
+
+</form>
+
+
+<!--<p>Username: {{form.controls.username.value}}</p>-->
+<!--<p>Email: {{form.controls.email.value}}</p>-->
+<!--<p>F Name: {{form.controls.fName.value}}</p>-->
+<!--<p>L Name: {{form.controls.lName.value}}</p>-->
+<!--<p>Role: {{form.controls.role.value}}</p>-->
+<!--<p>Mobile: {{form.controls.mobile.value}}</p>-->
+<!--<p>Password: {{form.controls.password.value}}</p>-->
+<!--<p>Confirm: {{form.controls.confirm.value}}</p>-->

@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HomeComponent} from "./components/home/home.component";
 import { DashboardComponent} from "./components/dashboard/dashboard.component";
+import { RegisterComponent} from "./components/register/register.component";
 
 // Array of objects each object being each route.
 const appRoutes: Routes = [
@@ -14,6 +15,10 @@ const appRoutes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
   // When ever there is a route that is accessed that is not defined.
   { path: '**', component: HomeComponent}
