@@ -6,6 +6,7 @@ const config         = require('./config/database'); // Importing database confi
 const path           = require('path');
 const authentication = require('./routes/authentication')(router);
 const bodyParser     = require('body-parser');
+const cors           = require('cors'); // Allows for cross origin
 
 // Database connection
 mongoose.Promise = global.Promise;
@@ -18,6 +19,10 @@ mongoose.connect(config.uri, (err) => {
 });
 
 
+// Middleware
+app.use(cors( {
+    origin: 'http://localhost:4200' // Allowing requests to be made from that URL.
+}));
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client/dist/')); // Providing access to the dist directory.

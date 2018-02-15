@@ -93,5 +93,49 @@ module.exports = (router) => {
             }
         }
     });
+
+    // Checking if user email is already taken.
+    router.get('/checkEmail:email', (req, res) => {
+        // If email not provided
+        if(!req.params.email) {
+            res.json({ success: false, message: 'E-mail was not provided'});
+            // If email provided.
+        } else {
+            // Return error if there was an error.
+            User.findOne({ email: req.params.email}, (err, user) => {
+                if (err) {
+                    res.json({ success: false, message: err});
+                } else {
+                    // Return if the email is already used.
+                    if (user) {
+                        res.json({ success: false, message: 'E-mail is already taken' });
+                        // Return if email is okay.
+                    } else {
+                        res.json({ success: true, message: 'E-mail is available' });
+                    }
+                }
+            });
+        }
+    });
+
+    // Checking if username is already taken.
+    router.get('/checkUsername:username', (req, res) => {
+        if(!req.params.username) {
+            res.json({ success: false, message: 'Username was not provided'});
+        } else {
+            User.findOne({ username: req.params.username}, (err, user) => {
+                if (err) {
+                    res.json({ success: false, message: err});
+                } else {
+                    if (user) {
+                        res.json({ success: false, message: 'Username is already taken' });
+                    } else {
+                        res.json({ success: true, message: 'Username is available' });
+                    }
+                }
+            });
+        }
+    });
+
     return router;
 };
