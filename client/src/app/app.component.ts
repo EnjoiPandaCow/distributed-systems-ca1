@@ -1,6 +1,7 @@
 // Importing component module from angular.
 import { Component } from '@angular/core';
 
+
 @Component({
   // Tell html where to put that component.
   selector: 'app-root',

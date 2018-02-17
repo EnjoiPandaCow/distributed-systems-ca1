@@ -1,4 +1,6 @@
-const User = require('../models/user');
+const User  = require('../models/user');
+const jwt   = require('jsonwebtoken');
+const config = require('../config/database');
 
 // Passing in Express router and returning it to return all of the API routes.
 module.exports = (router) => {
@@ -135,6 +137,67 @@ module.exports = (router) => {
                 }
             });
         }
+    });
+
+    // Login User Route
+    router.post('/login', (req, res) => {
+       if (!req.body.username) {
+           res.json({ success: false, message: 'No username was provided.'});
+       } else {
+           if (!req.body.password) {
+               res.json({ success: false, message: 'No password was provided.'})
+           } else {
+               User.findOne({ username: req.body.username}, (err, user) => {
+                  if (err) {
+                      res.json({ success: false, message: err});
+                  } else {
+                      if (!user) {
+                          res.json({ success: false, message: 'Username not found.'});
+                      } else {
+                          const validPassword = user.comparePassword(req.body.password);
+                          if (!validPassword) {
+                              res.json({ success: false, message: 'Password invalid'});
+                          } else {
+                              const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h'});
+                              res.json({ success: true, message: 'Great Success!!', token: token, user: { username: user.username, admin: user.admin, fName: user.fName} });
+                          }
+                      }
+                  }
+               });
+           }
+       }
+    });
+
+    // Middleware that grabs the token from the header
+    router.use((req, res, next) => {
+        const token = req.headers['authorization'];
+        //const admin = req.headers['admin'];
+        if (!token) {
+            res.json({success: false, message: 'No token provided'});
+        } else {
+            jwt.verify(token, config.secret, (err, decoded) => {
+               if (err) {
+                   res.json({ success: false, message: 'Token invalid: ' + err});
+               } else {
+                   req.decoded = decoded;
+                   next();
+               }
+            });
+        }
+    });
+
+    router.get('/profile', (req, res) => {
+       User.findOne({ _id: req.decoded.userId }).select('username email fName lName role mobile').exec((err, user) => {
+          if (err) {
+              res.json({ success: false, message: err});
+          } else {
+              if (!user) {
+                  res.json({ success: false, message: 'User not found.'})
+              } else {
+                  res.json({ success : true, user: user});
+              }
+          }
+       });
     });
 
     return router;

@@ -217,7 +217,7 @@ userSchema.pre('save', function(next) {
 });
 
 // Creating a new method for the user schema to compare password when logging in.
-userSchema.methods.comparePassword = (password) => {
+userSchema.methods.comparePassword = function (password) {
   // Returns true or false as being a match.
   return bcrypt.compareSync(password, this.password);
 };
