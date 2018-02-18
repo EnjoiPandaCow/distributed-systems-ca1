@@ -9,7 +9,6 @@ export class AuthService {
 
   domain = "http://localhost:8080";
   authToken;
-  // admin;
   user;
   options;
 
@@ -18,13 +17,11 @@ export class AuthService {
   // Use this function to attach headers.
   createAuthenticationHeaders() {
     this.loadToken();
-    // this.loadAdmin();
 
     this.options = new RequestOptions({
       headers: new Headers({
         'Content-Type' : 'application/json',
         'authorization' : this.authToken,
-        // 'admin' : this.admin
       })
     });
   }
@@ -33,10 +30,6 @@ export class AuthService {
   loadToken() {
     this.authToken = localStorage.getItem('token');
   }
-
-  // loadAdmin() {
-  //   this.admin = localStorage.getItem('admin');
-  // }
 
   // Passing the entire user object into the function.
   registerUser(user) {
@@ -67,7 +60,22 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(user));
     this.authToken = token;
     this.user = user;
+  }
 
+  isAdmin() {
+    if (localStorage.getItem("user") == null) {
+      return null
+    } else {
+
+      let admin = localStorage.getItem("user");
+      let jsonAdmin = JSON.parse(admin);
+
+      if (jsonAdmin.admin === true) {
+        return true
+      } else {
+        return false
+      }
+    }
   }
 
   getProfile() {

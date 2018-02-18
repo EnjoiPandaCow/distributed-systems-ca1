@@ -5,6 +5,7 @@ import { DashboardComponent} from "./components/dashboard/dashboard.component";
 import { RegisterComponent} from "./components/register/register.component";
 import { LoginComponent} from "./components/login/login.component";
 import { ProfileComponent} from "./components/profile/profile.component";
+import { AuthGuard} from "./guards/auth.guard";
 
 // Array of objects each object being each route.
 const appRoutes: Routes = [
@@ -16,7 +17,8 @@ const appRoutes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'register',
@@ -28,7 +30,8 @@ const appRoutes: Routes = [
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
   },
   // When ever there is a route that is accessed that is not defined.
   { path: '**', component: HomeComponent}
