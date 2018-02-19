@@ -1,0 +1,74 @@
+<h1 class="page-header">Reservations</h1>
+
+<!--<div class="row show-hide-message">-->
+  <!--<div [ngClass]="messageClass">-->
+    <!--{{ message }}-->
+  <!--</div>-->
+<!--</div>-->
+
+<button type="button" name="button" class="btn btn-primary" *ngIf="!newReservation" (click)="newReservationForm()">Make Reservation</button>
+<button [disabled]="loadingReservations" type="button" name="button" class="btn btn-deafult" *ngIf="!newReservation" (click)="reloadReservations()"><span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Refresh</button>
+
+<!-- Reservation Start -->
+<div *ngIf="!newReservation">
+  <div class="panel">
+    <div class="panel-heading">
+      <h2 class="panel-title"><strong>Facility Title</strong></h2>
+    </div>
+    <div class="panel-body">
+      <p><strong>Date:</strong> 21/11/1994</p>
+      <p><strong>Start Time:</strong> 16:00</p>
+      <p><strong>Finish Time:</strong> 18:00</p>
+    </div>
+    <div class="panel-footer">
+      <strong>Posted By:</strong> CJ O'Sullivan
+      <br>
+      <strong>Date:</strong> 19/11/1994
+      <br>
+      <strong>Approved:</strong> Yes
+    </div>
+    <div class="panel-buttons">
+      <a href="#"><button type="button" name="button" class="btn btn-sm btn-info">Edit</button></a>
+      <a href="#"><button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
+      <!-- Approved Dropdown -->
+      <div class="dropdown">
+        <button type="button" name="button" class="btn btn-sm btn-success">
+          <span class="glyphicon glyphicon-thumbs-up">&nbsp;</span> Approve
+        </button>
+        <div class="dropdown-content">
+          <a href="#">gugui3z24</a>
+          <a href="#">Cj O'sULLIVAN</a>
+        </div>
+      </div>
+
+      <!-- Disapproved Dropdown -->
+      <div class="dropdown">
+        <button type="button" name="button" class="btn btn-sm btn-warning">
+          <span class="glyphicon glyphicon-thumbs-down">&nbsp;</span> Disapproved
+        </button>
+        <div class="dropdown-content">
+          <a href="#">gugui3z24</a>
+          <a href="#">Cj O'sULLIVAN</a>
+        </div>
+      </div>
+    </div>
+  <!-- Reservation End -->
+
+  <!-- Comment Box -->
+    <ul class="list-group">
+      <li class="list-group-item">
+        <button type="button" name="button" class="btn btn-sm btn-danger"
+                (click)="draftComment()">Post Comment</button>
+        <br />
+        <!--<form>-->
+          <!--<textarea name="comment" rows="10" cols="30" class="form-control"></textarea>-->
+          <!--<button type="button" name="button" class="btn btn-sm btn-info">Submit Comment</button>-->
+          <!--<button type="button" name="button" class="btn btn-sm btn-danger">Cancel</button>-->
+        <!--</form>-->
+      </li>
+    </ul>
+
+
+
+  </div>
+</div>

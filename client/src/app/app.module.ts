@@ -14,6 +14,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import {FlashMessagesModule, FlashMessagesService} from "angular2-flash-messages";
 import { AuthGuard } from "./guards/auth.guard";
 import { NotAuthGuard } from "./guards/notAuth.guard";
+import { ReservationComponent} from "./components/reservation/reservation.component";
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { NotAuthGuard } from "./guards/notAuth.guard";
     DashboardComponent,
     RegisterComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,
