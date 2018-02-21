@@ -5,6 +5,7 @@ const mongoose       = require('mongoose');
 const config         = require('./config/database'); // Importing database config
 const path           = require('path');
 const authentication = require('./routes/authentication')(router);
+const reservation    = require('./routes/reservation')(router);
 const bodyParser     = require('body-parser');
 const cors           = require('cors'); // Allows for cross origin
 
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client/dist/')); // Providing access to the dist directory.
 app.use('/authentication', authentication);
+app.use('/reservations', reservation);
 
 /* Anytime user sends a request we are going to respond with something.
    In this case the home page.
