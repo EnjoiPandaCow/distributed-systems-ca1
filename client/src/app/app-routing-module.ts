@@ -40,7 +40,8 @@ const appRoutes: Routes = [
   },
   {
     path: 'reservation',
-    component: ReservationComponent
+    component: ReservationComponent,
+    canActivate: [AuthGuard]
   },
   // When ever there is a route that is accessed that is not defined.
   { path: '**', component: HomeComponent}

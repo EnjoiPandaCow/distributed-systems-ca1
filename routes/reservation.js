@@ -50,5 +50,20 @@ module.exports = (router) => {
            }
        }
     });
+
+    router.get('/allReservations', (req, res) => {
+       Reservation.find({}, (err, reservations) => {
+           if (err) {
+               res.json({ success: false, message: err});
+           } else {
+               if (!reservations) {
+                   res.json({ success: false, message: 'No reservations found.'});
+               } else {
+                   res.json({ success: true, reservations: reservations});
+               }
+           }
+       }).sort({ '_id': -1 });
+    });
+
     return router;
 };

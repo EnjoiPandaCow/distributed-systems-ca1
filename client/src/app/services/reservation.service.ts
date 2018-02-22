@@ -26,4 +26,9 @@ export class ReservationService {
     return this.http.post(this.domain + '/reservations/newReservation', reservation, this.options).map(res => res.json());
   }
 
+  getAllReservations() {
+    this.createAuthenticationHeaders();
+    return this.http.get(this.domain + '/reservations/allReservations', this.options).map(res => res.json());
+  }
+
 }

@@ -18,6 +18,7 @@ export class ReservationComponent implements OnInit {
   form;
   username;
   processing = false;
+  reservationPosts;
 
   constructor( private formBuilder: FormBuilder, private authService: AuthService, private reservationService: ReservationService) {
     this.createNewReservationForm();
@@ -50,15 +51,6 @@ export class ReservationComponent implements OnInit {
     this.newReservation = true;
   }
 
-  reloadReservations() {
-    this.loadingReservations = true;
-
-    // Retrieves all reservations.
-    setTimeout(() => {
-      this.loadingReservations = false;
-    }, 4000);
-  }
-
   draftComment() {
 
   }
@@ -74,7 +66,7 @@ export class ReservationComponent implements OnInit {
       eTime: this.form.get('eTime').value,
       postedBy: this.username
     };
-    
+
     this.reservationService.newReservation(reservation).subscribe(data => {
       if (!data.success) {
         this.messageClass = 'alert alert-danger';
@@ -84,6 +76,8 @@ export class ReservationComponent implements OnInit {
       } else {
         this.messageClass = 'alert alert-success';
         this.message = data.message;
+        this.getAllReservations();
+
         setTimeout(() => {
           this.newReservation = false;
           this.processing = false;
@@ -100,11 +94,26 @@ export class ReservationComponent implements OnInit {
     window.location.reload();
   }
 
+  getAllReservations () {
+    this.reservationService.getAllReservations().subscribe(data => {
+      this.reservationPosts = data.reservations;
+    })
+  }
+
+  reloadReservations() {
+    this.loadingReservations = true;
+    this.getAllReservations();
+    setTimeout(() => {
+      this.loadingReservations = false;
+    }, 4000);
+  }
+
   ngOnInit() {
     // When the component is initialized we get the users user name and assign it to a variable.
     this.authService.getProfile().subscribe(profile => {
       this.username = profile.user.username;
     });
+    this.getAllReservations();
   }
 
 }

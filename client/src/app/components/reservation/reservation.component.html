@@ -1,6 +1,6 @@
 <h1 class="page-header">Reservations</h1>
 
-<div class="row show-hide-message">
+<div class="row show-hide-message" *ngIf="message && newReservation">
   <div [ngClass]="messageClass">
     {{ message }}
   </div>
@@ -65,46 +65,30 @@
 </form>
 <!-- New Reservation Form -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- Reservation Start -->
 <div *ngIf="!newReservation">
-  <div class="panel">
+  <div class="panel" *ngFor="let reservation of reservationPosts">
     <div class="panel-heading">
-      <h2 class="panel-title"><strong>Facility Title</strong></h2>
+      <h2 class="panel-title"><strong>{{ reservation.facility }}</strong></h2>
     </div>
     <div class="panel-body">
-      <p><strong>Date:</strong> 21/11/1994</p>
-      <p><strong>Start Time:</strong> 16:00</p>
-      <p><strong>Finish Time:</strong> 18:00</p>
+      <p><strong>Date: </strong>{{ reservation.date | date:'dd / MM / yyyy' }}</p>
+      <p><strong>Start Time: </strong>{{ reservation.sTime }}</p>
+      <p><strong>Finish Time: </strong>{{ reservation.eTime }}</p>
     </div>
     <div class="panel-footer">
-      <strong>Posted By:</strong> CJ O'Sullivan
+      <strong>Posted By: </strong> {{ reservation.postedBy }}
       <br>
-      <strong>Date:</strong> 19/11/1994
+      <strong>Date: </strong> {{ reservation.postedOn | date:'dd / MM / yyyy' }}
       <br>
-      <strong>Approved:</strong> Yes
+      <strong>Approved: </strong> {{ reservation.approved ? "Yes":"No" }}
     </div>
     <div class="panel-buttons">
-      <a href="#"><button type="button" name="button" class="btn btn-sm btn-info">Edit</button></a>
-      <a href="#"><button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
+      <a [routerLink]="['edit-reservation/', reservation._id]" *ngIf="username === reservation.postedBy"><button type="button" name="button" class="btn btn-sm btn-info">Edit</button></a>
+      <a [routerLink]="['delete-reservation/', reservation._id]" *ngIf="username === reservation.postedBy"><button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
       <!-- Approved Dropdown -->
       <div class="dropdown">
-        <button type="button" name="button" class="btn btn-sm btn-success">
+        <button type="button" name="button" class="btn btn-sm btn-success" *ngIf="username !== reservation.postedBy">
           <span class="glyphicon glyphicon-thumbs-up">&nbsp;</span> Approve
         </button>
         <div class="dropdown-content">
@@ -115,7 +99,7 @@
 
       <!-- Disapproved Dropdown -->
       <div class="dropdown">
-        <button type="button" name="button" class="btn btn-sm btn-warning">
+        <button type="button" name="button" class="btn btn-sm btn-warning" *ngIf="username !== reservation.postedBy">
           <span class="glyphicon glyphicon-thumbs-down">&nbsp;</span> Disapproved
         </button>
         <div class="dropdown-content">
