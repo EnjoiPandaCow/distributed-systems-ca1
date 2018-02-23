@@ -31,4 +31,14 @@ export class ReservationService {
     return this.http.get(this.domain + '/reservations/allReservations', this.options).map(res => res.json());
   }
 
+  getSingleReservation(id) {
+    this.createAuthenticationHeaders();
+    return this.http.get(this.domain + '/reservations/singleReservation/' + id, this.options).map(res => res.json());
+  }
+
+  editReservation(reservation) {
+    this.createAuthenticationHeaders();
+    return this.http.put(this.domain + '/reservations/updateReservation/', reservation, this.options).map(res => res.json());
+  }
+
 }

@@ -65,5 +65,81 @@ module.exports = (router) => {
        }).sort({ '_id': -1 });
     });
 
+    router.get('/singleReservation/:id', (req, res) => {
+        if (!req.params.id) {
+            res.json({ success: false, message: 'No reservation ID was provided.'});
+        } else {
+            Reservation.findOne({_id: req.params.id}, (err, reservation) => {
+                if (err) {
+                    res.json({ success: false, message: "Not a valid reservation ID." });
+                } else {
+                    if (!reservation) {
+                        res.json({ success: false, message: 'Reservation not found.'});
+                    } else {
+                        User.findOne({ _id: req.decoded.userId }, (err, user) => {
+                           if (err) {
+                               res.json({ success: false, message: err});
+                           } else {
+                               if (!user) {
+                                   res.json({ success: false, message: 'Unable to authenticate user.'});
+                               } else {
+                                   if (user.username !== reservation.postedBy) {
+                                       res.json({ success: false, message: 'You are not authorized to edit this reservation.'});
+                                   } else {
+                                       res.json({ success: true, reservation: reservation});
+                                   }
+                               }
+                           }
+                        });
+                    }
+                }
+            });
+        }
+    });
+
+    router.put('/updateReservation', (req, res) => {
+        // Checking if the reservation ID is in the request body.
+        if (!req.body._id) {
+            res.json({ success: false, message: 'Reservation not ID provided.'});
+        } else {
+            Reservation.findOne({ _id: req.body._id }, (err, reservation) => {
+                if (err) {
+                    res.json({ success: false, message: 'Not a valid reservation ID.'});
+                } else {
+                    if (!reservation) {
+                        res.json({ success: false, message: 'Reservation ID was not found.'});
+                    } else {
+                        // Checking that the person trying to update is the person that made the reservation.
+                        User.findOne({ _id: req.decoded.userId }, (err, user) => {
+                           if (err) {
+                               res.json({ success: false, message: err});
+                           } else {
+                               if (!user) {
+                                   res.json({ success: false, message: 'Unable to authenticate user.'});
+                               } else {
+                                   if (user.username !== reservation.postedBy) {
+                                       res.json({ success: false, message: 'You are not authorized to edit this reservation.'});
+                                   } else {
+                                       reservation.facility = req.body.facility;
+                                       reservation.date = req.body.date;
+                                       reservation.sTime = req.body.sTime;
+                                       reservation.fTime = req.body.fTime;
+                                       reservation.save(err => {
+                                           if (err) {
+                                               res.json({ success: false, message: err });
+                                           } else {
+                                               res.json({ success: true, message: 'Reservation Updated'});
+                                           }
+                                       });
+                                   }
+                               }
+                           }
+                        });
+                    }
+                }
+            });
+        }
+    });
+
     return router;
 };

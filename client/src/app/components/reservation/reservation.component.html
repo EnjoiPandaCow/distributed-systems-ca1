@@ -84,8 +84,8 @@
       <strong>Approved: </strong> {{ reservation.approved ? "Yes":"No" }}
     </div>
     <div class="panel-buttons">
-      <a [routerLink]="['edit-reservation/', reservation._id]" *ngIf="username === reservation.postedBy"><button type="button" name="button" class="btn btn-sm btn-info">Edit</button></a>
-      <a [routerLink]="['delete-reservation/', reservation._id]" *ngIf="username === reservation.postedBy"><button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
+      <a [routerLink]="['/edit-reservation/', reservation._id]" *ngIf="username === reservation.postedBy"><button type="button" name="button" class="btn btn-sm btn-info">Edit</button></a>
+      <a [routerLink]="['/delete-reservation/', reservation._id]" *ngIf="username === reservation.postedBy"><button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
       <!-- Approved Dropdown -->
       <div class="dropdown">
         <button type="button" name="button" class="btn btn-sm btn-success" *ngIf="username !== reservation.postedBy">
