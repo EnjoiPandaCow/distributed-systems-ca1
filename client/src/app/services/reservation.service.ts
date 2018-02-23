@@ -41,4 +41,9 @@ export class ReservationService {
     return this.http.put(this.domain + '/reservations/updateReservation/', reservation, this.options).map(res => res.json());
   }
 
+  deleteReservation(id) {
+    this.createAuthenticationHeaders();
+    return this.http.delete(this.domain + '/reservations/deleteReservation/' + id, this.options).map(res => res.json());
+  }
+
 }

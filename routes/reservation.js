@@ -141,5 +141,43 @@ module.exports = (router) => {
         }
     });
 
+    router.delete('/deleteReservation/:id', (req, res) => {
+        if (!req.params.id) {
+            res.json({ success: false, message: 'No reservation ID provided.'});
+        } else {
+            Reservation.findOne({ _id: req.params.id}, (err, reservation) => {
+                if (err) {
+                    res.json({ success: false, message: 'Not a valid reservation ID.'});
+                } else {
+                    if (!reservation) {
+                        res.json({ success: false, message: 'Reservation not found.'});
+                    } else {
+                        User.findOne({ _id: req.decoded.userId }, (err, user) => {
+                            if (err) {
+                                res.json({ success: false, message: err});
+                            } else {
+                                if (!user) {
+                                    res.json({ success: false, message: 'Unable to authenticate user.'});
+                                } else {
+                                    if (user.username !== reservation.postedBy) {
+                                        res.json({ success: false, message: 'You are not authorized to delete this reservation.'});
+                                    } else {
+                                        reservation.remove((err) => {
+                                            if (err) {
+                                                res.json({ success: false, message: err});
+                                            } else {
+                                                res.json({ success: true, message: 'Reservation Deleted.'})
+                                            }
+                                        })
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    });
+
     return router;
 };

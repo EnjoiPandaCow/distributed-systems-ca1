@@ -7,6 +7,7 @@ import { LoginComponent} from "./components/login/login.component";
 import { ProfileComponent} from "./components/profile/profile.component";
 import { ReservationComponent} from "./components/reservation/reservation.component";
 import { EditReservationComponent} from "./components/reservation/edit-reservation/edit-reservation.component";
+import { DeleteReservationComponent} from "./components/reservation/delete-reservation/delete-reservation.component";
 import { AuthGuard} from "./guards/auth.guard";
 import { NotAuthGuard} from "./guards/notAuth.guard";
 
@@ -47,6 +48,11 @@ const appRoutes: Routes = [
   {
     path: 'edit-reservation/:id',
     component: EditReservationComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'delete-reservation/:id',
+    component: DeleteReservationComponent,
     canActivate: [AuthGuard]
   },
   // When ever there is a route that is accessed that is not defined.
