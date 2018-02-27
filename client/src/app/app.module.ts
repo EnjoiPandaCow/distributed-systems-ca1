@@ -18,9 +18,8 @@ import { AuthGuard } from "./guards/auth.guard";
 import { NotAuthGuard } from "./guards/notAuth.guard";
 import { ReservationComponent} from "./components/reservation/reservation.component";
 import { EditReservationComponent } from './components/reservation/edit-reservation/edit-reservation.component';
-import {DatePipe} from "@angular/common";
+import { DatePipe} from "@angular/common";
 import { DeleteReservationComponent } from './components/reservation/delete-reservation/delete-reservation.component';
-
 
 @NgModule({
   declarations: [
@@ -33,7 +32,7 @@ import { DeleteReservationComponent } from './components/reservation/delete-rese
     ProfileComponent,
     ReservationComponent,
     EditReservationComponent,
-    DeleteReservationComponent
+    DeleteReservationComponent,
   ],
   imports: [
     BrowserModule,
