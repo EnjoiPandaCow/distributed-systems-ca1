@@ -50,7 +50,7 @@ export class DeleteReservationComponent implements OnInit {
           postedBy: data.reservation.postedBy,
           postedOn: data.reservation.postedOn,
           approved: data.reservation.approved,
-        }
+        };
         this.foundReservation = true;
       }
     });

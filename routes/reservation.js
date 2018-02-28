@@ -83,7 +83,7 @@ module.exports = (router) => {
                                if (!user) {
                                    res.json({ success: false, message: 'Unable to authenticate user.'});
                                } else {
-                                   if (user.username !== reservation.postedBy) {
+                                   if (user.username !== reservation.postedBy && user.admin !== true) {
                                        res.json({ success: false, message: 'You are not authorized to edit this reservation.'});
                                    } else {
                                        res.json({ success: true, reservation: reservation});
@@ -117,13 +117,14 @@ module.exports = (router) => {
                                if (!user) {
                                    res.json({ success: false, message: 'Unable to authenticate user.'});
                                } else {
-                                   if (user.username !== reservation.postedBy) {
+                                   if (user.username !== reservation.postedBy && user.admin !== true) {
                                        res.json({ success: false, message: 'You are not authorized to edit this reservation.'});
                                    } else {
                                        reservation.facility = req.body.facility;
                                        reservation.date = req.body.date;
                                        reservation.sTime = req.body.sTime;
                                        reservation.fTime = req.body.fTime;
+                                       reservation.approved = req.body.approved;
                                        reservation.save(err => {
                                            if (err) {
                                                res.json({ success: false, message: err });
@@ -150,23 +151,24 @@ module.exports = (router) => {
                     res.json({ success: false, message: 'Not a valid reservation ID.'});
                 } else {
                     if (!reservation) {
-                        res.json({ success: false, message: 'Reservation not found.'});
+                        res.json({success: false, message: 'Reservation not found.'});
                     } else {
-                        User.findOne({ _id: req.decoded.userId }, (err, user) => {
+                        User.findOne({_id: req.decoded.userId}, (err, user) => {
                             if (err) {
-                                res.json({ success: false, message: err});
+                                res.json({success: false, message: err});
                             } else {
                                 if (!user) {
-                                    res.json({ success: false, message: 'Unable to authenticate user.'});
+                                    res.json({success: false, message: 'Unable to authenticate user.'});
                                 } else {
-                                    if (user.username !== reservation.postedBy) {
-                                        res.json({ success: false, message: 'You are not authorized to delete this reservation.'});
+                                    if (user.username !== reservation.postedBy && user.admin !== true) {
+                                        res.json({success: false, message: 'You are not authorized to delete this reservation.'});
                                     } else {
                                         reservation.remove((err) => {
                                             if (err) {
-                                                res.json({ success: false, message: err});
+                                                res.json({success: false, message: err});
                                             } else {
-                                                res.json({ success: true, message: 'Reservation Deleted.'})
+                                                res.json({success: true, message: 'Reservation Deleted.'});
+                                                console.log(user.admin);
                                             }
                                         })
                                     }
@@ -178,6 +180,5 @@ module.exports = (router) => {
             });
         }
     });
-
     return router;
 };

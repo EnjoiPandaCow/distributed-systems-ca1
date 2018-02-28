@@ -120,6 +120,9 @@ module.exports = (router) => {
         }
     });
 
+    // Edit User Route
+
+
     // Checking if username is already taken.
     router.get('/checkUsername:username', (req, res) => {
         if(!req.params.username) {

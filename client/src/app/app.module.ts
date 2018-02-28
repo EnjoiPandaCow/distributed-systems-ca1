@@ -20,6 +20,7 @@ import { ReservationComponent} from "./components/reservation/reservation.compon
 import { EditReservationComponent } from './components/reservation/edit-reservation/edit-reservation.component';
 import { DatePipe} from "@angular/common";
 import { DeleteReservationComponent } from './components/reservation/delete-reservation/delete-reservation.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { DeleteReservationComponent } from './components/reservation/delete-rese
     ReservationComponent,
     EditReservationComponent,
     DeleteReservationComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,

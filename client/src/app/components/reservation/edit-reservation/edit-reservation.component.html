@@ -28,6 +28,12 @@
     <input [disabled]="processing" type="time" name="eTime" placeholder="Finish Time" class="form-control" [(ngModel)]="reservation.eTime" />
   </div>
 
+  <div *ngIf="authService.isAdmin()" class="form-group">
+    <label for="approved">Approved</label>
+    <br>
+    <input id="approved" [disabled]="processing" type="checkbox" name="approved" placeholder="Approved" [(ngModel)]="reservation.approved" />
+  </div>
+
   <br>
 
   <a [routerLink]="['/delete-reservation/', reservation._id]"><button [disabled]="processing" type="button" name="button" class="btn btn-danger">Delete</button></a>

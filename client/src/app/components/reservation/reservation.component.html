@@ -58,10 +58,6 @@
 
   <button [disabled]="processing"  type="button" name="button" (click)="goBack()" class="btn btn-warning">Go Back</button>
   <button [disabled]="processing || !form.valid"  type="submit" name="button" class="btn btn-success">Submit</button>
-
-
-
-
 </form>
 <!-- New Reservation Form -->
 
@@ -84,47 +80,8 @@
       <strong>Approved: </strong> {{ reservation.approved ? "Yes":"No" }}
     </div>
     <div class="panel-buttons">
-      <a [routerLink]="['/edit-reservation/', reservation._id]" *ngIf="username === reservation.postedBy"><button type="button" name="button" class="btn btn-sm btn-info">Edit</button></a>
-      <a [routerLink]="['/delete-reservation/', reservation._id]" *ngIf="username === reservation.postedBy"><button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
-      <!-- Approved Dropdown -->
-      <div class="dropdown">
-        <button type="button" name="button" class="btn btn-sm btn-success" *ngIf="username !== reservation.postedBy">
-          <span class="glyphicon glyphicon-thumbs-up">&nbsp;</span> Approve
-        </button>
-        <div class="dropdown-content">
-          <a href="#">gugui3z24</a>
-          <a href="#">Cj O'sULLIVAN</a>
-        </div>
-      </div>
-
-      <!-- Disapproved Dropdown -->
-      <div class="dropdown">
-        <button type="button" name="button" class="btn btn-sm btn-warning" *ngIf="username !== reservation.postedBy">
-          <span class="glyphicon glyphicon-thumbs-down">&nbsp;</span> Disapproved
-        </button>
-        <div class="dropdown-content">
-          <a href="#">gugui3z24</a>
-          <a href="#">Cj O'sULLIVAN</a>
-        </div>
-      </div>
+      <a [routerLink]="['/edit-reservation/', reservation._id]" *ngIf="username === reservation.postedBy || authService.isAdmin()"><button type="button" name="button" class="btn btn-sm btn-info">Edit</button></a>
+      <a [routerLink]="['/delete-reservation/', reservation._id]" *ngIf="username === reservation.postedBy || authService.isAdmin()"><button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
     </div>
-  <!-- Reservation End -->
-
-  <!-- Comment Box -->
-    <ul class="list-group">
-      <li class="list-group-item">
-        <button type="button" name="button" class="btn btn-sm btn-danger"
-                (click)="draftComment()">Post Comment</button>
-        <br />
-        <!--<form>-->
-          <!--<textarea name="comment" rows="10" cols="30" class="form-control"></textarea>-->
-          <!--<button type="button" name="button" class="btn btn-sm btn-info">Submit Comment</button>-->
-          <!--<button type="button" name="button" class="btn btn-sm btn-danger">Cancel</button>-->
-        <!--</form>-->
-      </li>
-    </ul>
-
-
-
-  </div>
+ </div>
 </div>
