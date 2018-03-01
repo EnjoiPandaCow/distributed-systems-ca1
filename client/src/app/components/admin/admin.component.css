@@ -1,32 +1,21 @@
-#edit {
-  margin-left: 116px;
+#users {
+  margin-left: 45%;
 }
 
-#remove{
-  margin-left: 95px;
-}
-
-#add{
-  margin-left: 95px;
+#facilities{
+  margin-left: 40%
 }
 
 .fa-users {
   font-size: 120px;
-  margin-left: 116px;
-  color: rgba(0, 191, 255, 0.41);
-  margin-top: 20px;
-}
-
-.fa-user-times {
-  font-size: 120px;
-  margin-left: 116px;
+  margin-left: 40%;
   color: rgba(0, 191, 255, 0.41);
   margin-top: 20px;
 }
 
 .fa-building {
   font-size: 120px;
-  margin-left: 116px;
+  margin-left: 40%;
   color: rgba(0, 191, 255, 0.41);
   margin-top: 20px;
 }

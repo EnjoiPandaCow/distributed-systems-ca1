@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location, DatePipe} from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router'; // Allows us to grab the url.
 import { ReservationService} from "../../../services/reservation.service";
+import { AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-edit-reservation',
@@ -18,7 +19,7 @@ export class EditReservationComponent implements OnInit {
   currentUrl;
   loading = true;
 
-  constructor( private location: Location, private activatedRoute: ActivatedRoute, private reservationService : ReservationService, private datePipe: DatePipe, private router: Router ) { }
+  constructor( private location: Location, private activatedRoute: ActivatedRoute, private reservationService : ReservationService, private datePipe: DatePipe, private router: Router, private authService: AuthService ) { }
 
   updateReservationSubmit() {
     this.processing = true;

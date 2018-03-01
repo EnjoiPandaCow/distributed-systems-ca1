@@ -10,7 +10,9 @@ import { EditReservationComponent} from "./components/reservation/edit-reservati
 import { DeleteReservationComponent} from "./components/reservation/delete-reservation/delete-reservation.component";
 import { AuthGuard} from "./guards/auth.guard";
 import { NotAuthGuard} from "./guards/notAuth.guard";
-import {AdminComponent} from "./components/admin/admin.component";
+import { AdminGuard} from "./guards/admin.guard";
+import { AdminComponent} from "./components/admin/admin.component";
+import { UsersComponent} from "./components/users/users.component";
 
 
 // Array of objects each object being each route.
@@ -59,7 +61,12 @@ const appRoutes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AdminGuard]
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
+    canActivate: [AdminGuard]
   },
   // When ever there is a route that is accessed that is not defined.
   { path: '**', component: HomeComponent}

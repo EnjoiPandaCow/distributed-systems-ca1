@@ -120,8 +120,20 @@ module.exports = (router) => {
         }
     });
 
-    // Edit User Route
-
+    // Get all users.
+    router.get('/allUsers', (req, res) => {
+        User.find({}, (err, users) => {
+          if (err) {
+              res.json({ success: false, message: err});
+          }  else {
+              if (!users) {
+                  res.json({ success: false, message: 'No users found'});
+              } else {
+                  res.json({ success: true, users: users});
+              }
+          }
+        }).sort({ 'username': -1});
+    });
 
     // Checking if username is already taken.
     router.get('/checkUsername:username', (req, res) => {

@@ -48,6 +48,11 @@ export class AuthService {
     return this.http.post(this.domain + '/authentication/login', user).map(res => res.json());
   }
 
+  getAllUsers() {
+    this.createAuthenticationHeaders();
+    return this.http.get(this.domain + '/authentication/allUsers', this.options).map(res => res.json());
+  }
+
   logout() {
     this.authToken = null;
     this.user = null;

@@ -21,6 +21,8 @@ import { EditReservationComponent } from './components/reservation/edit-reservat
 import { DatePipe} from "@angular/common";
 import { DeleteReservationComponent } from './components/reservation/delete-reservation/delete-reservation.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { UsersComponent } from './components/users/users.component';
+import {AdminGuard} from "./guards/admin.guard";
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { AdminComponent } from './components/admin/admin.component';
     EditReservationComponent,
     DeleteReservationComponent,
     AdminComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,7 @@ import { AdminComponent } from './components/admin/admin.component';
     FlashMessagesModule
   ],
   providers: [
-    [AuthService, AuthGuard, NotAuthGuard, ReservationService, DatePipe],
+    [AuthService, AuthGuard, NotAuthGuard, AdminGuard, ReservationService, DatePipe],
     [FlashMessagesService]
   ],
   bootstrap: [AppComponent]
