@@ -154,6 +154,7 @@ module.exports = (router) => {
         }
     });
 
+    // Update User
     router.put('/editUser', (req, res) => {
         if (!req.body._id) {
             res.json({ success: false, message: 'User ID not provided.'});
@@ -179,6 +180,32 @@ module.exports = (router) => {
                         });
                     }
                 }
+            });
+        }
+    });
+
+    // Delete User
+    router.delete('/deleteUser/:id', (req, res) => {
+        if (!req.params.id) {
+            res.json({ success: false, message: 'No User ID provided.'});
+        } else {
+            User.findOne({ _id: req.params.id}, (err, user) => {
+                if (err) {
+                    res.json({ success: false, message: 'Not a valid user ID.'});
+                } else {
+                    if (!user) {
+                        res.json({success: false, message: 'User not found.'});
+                    } else {
+                        user.remove((err) => {
+                            if (err) {
+                                res.json({success: false, message: err});
+                            } else {
+                                res.json({success: true, message: 'User Deleted.'});
+                            }
+                        })
+                    }
+                }
+
             });
         }
     });

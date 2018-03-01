@@ -14,6 +14,7 @@ import { AdminGuard} from "./guards/admin.guard";
 import { AdminComponent} from "./components/admin/admin.component";
 import { UsersComponent} from "./components/users/users.component";
 import { EditUsersComponent} from "./components/users/edit-users/edit-users.component";
+import { DeleteUsersComponent } from "./components/users/delete-users/delete-users.component";
 
 
 // Array of objects each object being each route.
@@ -73,6 +74,11 @@ const appRoutes: Routes = [
     path: 'edit-user/:id',
     component: EditUsersComponent,
     canActivate: [AdminGuard]
+  },
+  {
+    path: 'delete-user/:id',
+    component: DeleteUsersComponent,
+    canActivate: [AuthGuard]
   },
   // When ever there is a route that is accessed that is not defined.
   { path: '**', component: HomeComponent}
