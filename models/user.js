@@ -199,7 +199,7 @@ const userSchema = new Schema({
     role: {type: String, required: true},
     mobile: {type: String, required: true, validate: mobileValidators},
     admin: {type: Boolean, require: true, default: false},
-    password: {type: String, required: true, validate: passwordValidators}
+    password: {type: String, required: true, }
 });
 
 // Creating middleware for the schema, before the user is saved it will encrypt the password.

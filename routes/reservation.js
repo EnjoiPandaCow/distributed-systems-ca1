@@ -100,7 +100,7 @@ module.exports = (router) => {
     router.put('/updateReservation', (req, res) => {
         // Checking if the reservation ID is in the request body.
         if (!req.body._id) {
-            res.json({ success: false, message: 'Reservation not ID provided.'});
+            res.json({ success: false, message: 'Reservation ID not provided.'});
         } else {
             Reservation.findOne({ _id: req.body._id }, (err, reservation) => {
                 if (err) {

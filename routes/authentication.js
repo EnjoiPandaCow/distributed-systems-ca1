@@ -135,6 +135,54 @@ module.exports = (router) => {
         }).sort({ 'username': -1});
     });
 
+    // Get Single User
+    router.get('/singleUser/:id', (req, res) => {
+        if (!req.params.id) {
+            res.json({ success: false, message: 'No User ID was provided.'});
+        } else {
+            User.findOne({ _id: req.params.id}, (err, user) => {
+               if (err) {
+                   res.json({ success: false, message: 'Not a valid user ID.'});
+               } else {
+                   if (!user) {
+                       res.json({ success: false, message: 'User not found.'});
+                   } else {
+                       res.json({ success: true, user: user})
+                   }
+               }
+            });
+        }
+    });
+
+    router.put('/editUser', (req, res) => {
+        if (!req.body._id) {
+            res.json({ success: false, message: 'User ID not provided.'});
+        } else {
+            User.findOne({ _id: req.body._id }, (err, user) => {
+                if (err) {
+                    res.json({success: false, message: 'Not a valid user ID.'});
+                } else {
+                    if (!user) {
+                        res.json({success: false, message: 'User ID was not found.'});
+                    } else {
+                        user.username = req.body.username;
+                        user.role = req.body.role;
+                        user.email = req.body.email;
+                        user.mobile = req.body.mobile;
+                        user.admin = req.body.admin;
+                        user.save(err => {
+                            if (err) {
+                                res.json({success: false, message: err});
+                            } else {
+                                res.json({success: true, message: 'User Updated'});
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    });
+
     // Checking if username is already taken.
     router.get('/checkUsername:username', (req, res) => {
         if(!req.params.username) {

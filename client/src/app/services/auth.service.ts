@@ -53,6 +53,16 @@ export class AuthService {
     return this.http.get(this.domain + '/authentication/allUsers', this.options).map(res => res.json());
   }
 
+  getSingleUser(id) {
+    this.createAuthenticationHeaders();
+    return this.http.get(this.domain + '/authentication/singleUser/' + id, this.options).map(res => res.json());
+  }
+
+  editUser(user) {
+    this.createAuthenticationHeaders();
+    return this.http.put(this.domain + '/authentication/editUser/', user, this.options).map(res => res.json());
+  }
+
   logout() {
     this.authToken = null;
     this.user = null;

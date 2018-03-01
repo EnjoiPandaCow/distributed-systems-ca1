@@ -20,24 +20,4 @@
       <a routerLink="/reservation"><button [disabled]="processing" type="button" name="button" class="btn btn-danger">No</button></a>
     </div>
   </div>
-
-  <br>
-
-  <div class="panel">
-    <div class="panel-heading">
-      <h2 class="panel-title"><strong>{{ reservation.facility }}</strong></h2>
-    </div>
-    <div class="panel-body">
-      <p><strong>Date: </strong>{{ reservation.date | date:'dd / MM / yyyy' }}</p>
-      <p><strong>Start Time: </strong>{{ reservation.sTime }}</p>
-      <p><strong>Finish Time: </strong>{{ reservation.eTime }}</p>
-    </div>
-    <div class="panel-footer">
-      <strong>Posted By: </strong> {{ reservation.postedBy }}
-      <br>
-      <strong>Date: </strong> {{ reservation.postedOn | date:'dd / MM / yyyy' }}
-      <br>
-      <strong>Approved: </strong> {{ reservation.approved ? "Yes":"No" }}
-    </div>
-  </div>
 </div>

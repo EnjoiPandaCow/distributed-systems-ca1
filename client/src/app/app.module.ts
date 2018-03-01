@@ -23,6 +23,7 @@ import { DeleteReservationComponent } from './components/reservation/delete-rese
 import { AdminComponent } from './components/admin/admin.component';
 import { UsersComponent } from './components/users/users.component';
 import {AdminGuard} from "./guards/admin.guard";
+import { EditUsersComponent } from './components/users/edit-users/edit-users.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {AdminGuard} from "./guards/admin.guard";
     DeleteReservationComponent,
     AdminComponent,
     UsersComponent,
+    EditUsersComponent,
   ],
   imports: [
     BrowserModule,
