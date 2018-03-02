@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<form (submit)="updateUserSubmit()" *ngIf="!loading">
+<form [formGroup] = "form" (submit)="updateUserSubmit()" *ngIf="!loading">
 
   <div class="form-group">
     <label for="username">Username</label>

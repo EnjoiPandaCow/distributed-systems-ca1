@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router} from "@angular/router";
 import { AuthService} from "../../../services/auth.service";
+import { FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-edit-users',
@@ -16,6 +17,7 @@ export class EditUsersComponent implements OnInit {
   processing = false;
   currentUrl;
   loading = true;
+  form: FormGroup;
 
   constructor( private location: Location, private activatedRoute: ActivatedRoute, private authService: AuthService, private router: Router) { }
 
